@@ -27,6 +27,10 @@ describe('Sandbox Component',()=>{
     listItems.forEach(item => {
       expect(item).toBeInTheDocument();
     });
-    // expect(screen.getByRole('listitem'))
+   
   })
+  test('renders cards', () => {
+    render(<Sandbox />);
+    expect(screen.getAllByRole('article')).toHaveLength(3);
+  });
 })
