@@ -56,5 +56,10 @@ describe('Sandbox Component',()=>{
     });
     expect(asyncButton).toBeInTheDocument();
   })
-  
+  test('form renders', () => {
+    render(<Sandbox />);
+    expect(screen.getByRole('textbox', { name: /username/i })).toHaveValue('');
+    expect(screen.getByLabelText(/password/i)).toHaveValue('');
+    expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
+  });
 })
