@@ -33,4 +33,28 @@ describe('Sandbox Component',()=>{
     render(<Sandbox />);
     expect(screen.getAllByRole('article')).toHaveLength(3);
   });
+  test('Renders Initial buttons',()=>{
+    render(<Sandbox/>)
+    expect(
+      screen.getByRole('button', { name: 'Click me' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+  });
+    
+  test('Error button is not initially visible',()=>{
+    render(<Sandbox/>)
+    expect(screen.queryByRole('button',{name:'Error'})).not.toBeInTheDocument()
+  })
+  test('Async buttons that are displayed ater some delay',async()=>{
+    render(<Sandbox />);
+    expect(
+      screen.queryByRole('button', { name: 'Async Button' })
+    ).not.toBeInTheDocument();
+    // Wait for button to appear using findByRole
+    const asyncButton = await screen.findByRole('button', {
+      name: 'Async Button',
+    });
+    expect(asyncButton).toBeInTheDocument();
+  })
+  
 })
