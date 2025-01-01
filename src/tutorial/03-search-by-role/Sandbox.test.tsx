@@ -20,4 +20,13 @@ describe('Sandbox Component',()=>{
     render(<Sandbox />);
     expect(screen.getByRole('img',{ name: /example/i })).toHaveAttribute('src','example.jpg')
   })
+  test('renders list',()=>{
+    render(<Sandbox/>)
+    const listItems= screen.getAllByRole('listitem')
+    expect(listItems).toHaveLength(2);
+    listItems.forEach(item => {
+      expect(item).toBeInTheDocument();
+    });
+    // expect(screen.getByRole('listitem'))
+  })
 })
