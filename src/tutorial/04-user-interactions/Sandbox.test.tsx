@@ -20,11 +20,17 @@ describe('04-user-interactions', () => {
     // 2. It fires multiple events that would occur in a real browser
     // 3. It handles edge cases better (like keyboard navigation)
     // 4. It's more maintainable and future-proof
-    test('should increment and decrement count using userEvent', async () => {
+    test('toggles between unlike and like buttons when clicked', async () => {
         render(<Sandbox />)
         const user = userEvent.setup();
         const unlikeButton= screen.getByRole('button',{name:'unlike button'})
         expect(unlikeButton).toBeInTheDocument()
-
+        expect(
+            screen.queryByRole('button', { name: 'like button' })
+          ).not.toBeInTheDocument();
+        await user.click(unlikeButton)
+        const likedButton= screen.getByRole('button',{name:'like button'})
+        expect(likedButton).toBeInTheDocument();
+        expect(screen.queryByRole('button',{name:'unlike button'})).not.toBeInTheDocument();
     })
 })
