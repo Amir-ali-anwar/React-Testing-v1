@@ -22,7 +22,7 @@ const Sandbox = () => {
     const { id, value } = e.target;
     SetFormInput({ ...fromInput, [id]: value });
   };
-  const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!fromInput.email || !validator.isEmail(fromInput?.email)) {
       return setError('Invalid email');
@@ -33,38 +33,39 @@ const Sandbox = () => {
     if (fromInput.password !== fromInput.confirmPassword) {
       console.log(fromInput.password);
       console.log(fromInput.confirmPassword);
-      
+
       return setError('Passwords do not match');
     }
-  console.log("clicked");
-  
+
+    setError('')
+    SetFormInput(defaultState)
   }
   return <div className='container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md'>
     <form className='space-y-4' onSubmit={handleSubmit}>
       <div className='mb-3'>
-        <label htmlFor='email' className={labelStyles}>
-          Email address
-        </label>
-        <input
-          type='email'
-          id='email'
-          className={inputStyles}
-          onChange={handleChange}
-          value={fromInput.email ?? ''}
+          <label htmlFor='email' className={labelStyles}>
+            Email address
+          </label>
+          <input
+            type='email'
+            id='email'
+            className={inputStyles}
+            onChange={handleChange}
+            value={fromInput.email ?? ''}
           />
-      </div>
-      <div className='mb-3'>
-        <label htmlFor='email' className={labelStyles}>
-          Password
-        </label>
-        <input
-          type='password'
-          id='password'
-          className={inputStyles}
+        </div>
+        <div className='mb-3'>
+          <label htmlFor='password' className={labelStyles}>
+            Password
+          </label>
+          <input
+            type='password'
+            id='password'
+            className={inputStyles}
           onChange={handleChange}
           value={fromInput.password ?? ''}
-        />
-      </div>
+          />
+        </div>
       <div className='mb-3'>
         <label htmlFor='confirmPassword' className={labelStyles}>
           Confirm Password
