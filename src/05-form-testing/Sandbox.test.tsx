@@ -25,13 +25,17 @@ describe('Form Testing', () => {
     });
     test('inputs should be initially empty', () => {
         const {
-            // emailInputElement,
+            emailInputElement,
             passwordInputElement,
             confirmPasswordInputElement,
         } = getElements();
-        //   expect(emailInputElement).toHaveValue('')
+          expect(emailInputElement).toHaveValue('')
         expect(passwordInputElement).toHaveValue('')
         expect(confirmPasswordInputElement).toHaveValue('')
 
+    })
+    test("email input should have the correct type attribute",()=>{
+        const emailInputEement= screen.getByLabelText(/email address/i)
+        expect(emailInputEement).toHaveAttribute('type','email')
     })
 })
