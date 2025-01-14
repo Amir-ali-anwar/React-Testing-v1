@@ -38,4 +38,8 @@ describe('Form Testing', () => {
         const emailInputEement= screen.getByLabelText(/email address/i)
         expect(emailInputEement).toHaveAttribute('type','email')
     })
+    test("email input should have the correct id attribute",()=>{
+        const emailInputEement= screen.getByLabelText(/email address/i)
+        expect(emailInputEement).toHaveAttribute('id', 'email');
+    })
 })
