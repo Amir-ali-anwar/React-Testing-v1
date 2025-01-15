@@ -42,4 +42,17 @@ describe('Form Testing', () => {
         const emailInputEement= screen.getByLabelText(/email address/i)
         expect(emailInputEement).toHaveAttribute('id', 'email');
     })
+    test('we should be able to type in the input field', async ()=>{
+        const {
+            emailInputElement,
+            passwordInputElement,
+            confirmPasswordInputElement,
+        } = getElements();
+        await user.type(emailInputElement,'test@test.com');
+        expect(emailInputElement).toHaveValue('test@test.com')
+        await user.type(passwordInputElement,'secret')      
+        expect(passwordInputElement).toHaveValue('secret')
+        await user.type(confirmPasswordInputElement,'secret')      
+        expect(confirmPasswordInputElement).toHaveValue('secret')
+    })
 })
