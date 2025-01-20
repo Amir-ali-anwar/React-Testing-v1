@@ -71,5 +71,20 @@ describe('Form Testing', () => {
           screen.getByText(/password must be at least 5 characters/i)
         ).toBeInTheDocument();
       });
+      test('Show error if password and confirm pasword are not same',async()=>{
+        const {   emailInputElement,
+            passwordInputElement,
+            confirmPasswordInputElement,
+            submitButton, } =
+        getElements();
+         expect(screen.queryByText(/passwords do not match/i)).not.toBeInTheDocument()
+         await user.type(emailInputElement,'test@test.com') 
+         await user.type(passwordInputElement,'secret') 
+         await user.type(confirmPasswordInputElement,'notsecret') 
+         await user.click(submitButton);
+         expect(
+            screen.getByText(/passwords do not match/i)
+          ).toBeInTheDocument();
+      })
 })
 
