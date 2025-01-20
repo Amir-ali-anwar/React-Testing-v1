@@ -25,6 +25,8 @@ const Sandbox = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!fromInput.email || !validator.isEmail(fromInput?.email)) {
+      console.log('clicked');
+      
       return setError('Invalid email');
     }
     if (!fromInput.password || !validator.isLength(fromInput.password, { min: 5 })) {
