@@ -1,4 +1,4 @@
-import { render, screen ,waitFor} from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Sandbox from './Sandbox'
 import userEvent, { UserEvent } from '@testing-library/user-event'
 
@@ -29,62 +29,79 @@ describe('Form Testing', () => {
             passwordInputElement,
             confirmPasswordInputElement,
         } = getElements();
-          expect(emailInputElement).toHaveValue('')
+        expect(emailInputElement).toHaveValue('')
         expect(passwordInputElement).toHaveValue('')
         expect(confirmPasswordInputElement).toHaveValue('')
 
     })
-    test("email input should have the correct type attribute",()=>{
-        const emailInputEement= screen.getByLabelText(/email address/i)
-        expect(emailInputEement).toHaveAttribute('type','email')
+    test("email input should have the correct type attribute", () => {
+        const emailInputEement = screen.getByLabelText(/email address/i)
+        expect(emailInputEement).toHaveAttribute('type', 'email')
     })
-    test("email input should have the correct id attribute",()=>{
-        const emailInputEement= screen.getByLabelText(/email address/i)
+    test("email input should have the correct id attribute", () => {
+        const emailInputEement = screen.getByLabelText(/email address/i)
         expect(emailInputEement).toHaveAttribute('id', 'email');
     })
-    test('we should be able to type in the input field', async ()=>{
+    test('we should be able to type in the input field', async () => {
         const {
             emailInputElement,
             passwordInputElement,
             confirmPasswordInputElement,
         } = getElements();
-        await user.type(emailInputElement,'test@test.com');
+        await user.type(emailInputElement, 'test@test.com');
         expect(emailInputElement).toHaveValue('test@test.com')
-        await user.type(passwordInputElement,'secret')      
+        await user.type(passwordInputElement, 'secret')
         expect(passwordInputElement).toHaveValue('secret')
-        await user.type(confirmPasswordInputElement,'secret')      
-        expect(confirmPasswordInputElement ).toHaveValue('secret')
+        await user.type(confirmPasswordInputElement, 'secret')
+        expect(confirmPasswordInputElement).toHaveValue('secret')
     })
     test('should show password error if password is less than 5 characters', async () => {
         const { emailInputElement, passwordInputElement, submitButton } =
-          getElements();
-    
+            getElements();
+
         expect(
-          screen.queryByText(/password must be at least 5 characters/i)
+            screen.queryByText(/password must be at least 5 characters/i)
         ).not.toBeInTheDocument();
-    
+
         await user.type(emailInputElement, 'test@test.com');
         await user.type(passwordInputElement, 'abcd');
         await user.click(submitButton);
-    
+
         expect(
-          screen.getByText(/password must be at least 5 characters/i)
+            screen.getByText(/password must be at least 5 characters/i)
         ).toBeInTheDocument();
-      });
-      test('Show error if password and confirm pasword are not same',async()=>{
-        const {   emailInputElement,
+    });
+    test('Show error if password and confirm pasword are not same', async () => {
+        const { emailInputElement,
             passwordInputElement,
             confirmPasswordInputElement,
-            submitButton, } =
-        getElements();
-         expect(screen.queryByText(/passwords do not match/i)).not.toBeInTheDocument()
-         await user.type(emailInputElement,'test@test.com') 
-         await user.type(passwordInputElement,'secret') 
-         await user.type(confirmPasswordInputElement,'notsecret') 
-         await user.click(submitButton);
-         expect(
+            submitButton } =
+            getElements();
+        expect(screen.queryByText(/passwords do not match/i)).not.toBeInTheDocument()
+        await user.type(emailInputElement, 'test@test.com')
+        await user.type(passwordInputElement, 'secret')
+        await user.type(confirmPasswordInputElement, 'notsecret')
+        await user.click(submitButton);
+        expect(
             screen.getByText(/passwords do not match/i)
-          ).toBeInTheDocument();
-      })
+        ).toBeInTheDocument();
+    })
+    test('valid inputs show no errors and clear fields', async () => {
+        const { emailInputElement,
+            passwordInputElement,
+            confirmPasswordInputElement,
+            submitButton } =
+            getElements();
+        await user.type(emailInputElement, 'test@test.com')
+        await user.type(passwordInputElement, 'secret')
+        await user.type(confirmPasswordInputElement, 'notsecret')
+        await user.click(submitButton);
+        expect(screen.queryByText(/invalid email/i)).not.toBeInTheDocument()
+        expect(
+            screen.queryByText(/password must be at least 5 characters/i)
+          ).not.toBeInTheDocument();
+        
+
+    })
 })
 
