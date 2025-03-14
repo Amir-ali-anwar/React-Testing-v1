@@ -101,7 +101,9 @@ describe('Form Testing', () => {
             screen.queryByText(/password must be at least 5 characters/i)
           ).not.toBeInTheDocument();
         
-
+          expect(emailInputElement).toHaveValue('');
+    expect(passwordInputElement).toHaveValue('');
+    expect(confirmPasswordInputElement).toHaveValue('');
     })
 })
 

@@ -40,7 +40,7 @@ const Sandbox = () => {
     }
 
     setError('')
-    SetFormInput(defaultState)
+    SetFormInput({ email: '', password: '', confirmPassword: '' });
   }
   return <div className='container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md'>
     <form className='space-y-4' onSubmit={handleSubmit}>
